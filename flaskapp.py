@@ -2,14 +2,15 @@ from flask import Flask, request
 import requests
 import os
 import time
-from generate import countries
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
+    from generate import countries
+    print(countries)
     country=request.args.get("c")
-    if country and country in countries:
+    if country and (country in countries):
         path = "/home/CacheServer/countries/{}".format(country)
         if (p := requests.get("https://api.covid19api.com/total/dayone/country/{}".format(country))).ok:
             content = p.content.decode()
