@@ -13,7 +13,7 @@ def home():
         if (p := requests.get("https://api.covid19api.com/total/dayone/country/{}".format(country))).ok:
             content = p.content.decode()
             count = 0
-            while count < 6:
+            while count < 20:
                 if os.access(path, os.W_OK):
                     with open(path, 'w') as f:
                         f.write(content)
@@ -22,7 +22,7 @@ def home():
                     time.sleep(1)
                     count += 1
         while True:
-            if os.access(fnm, os.R_OK):
+            if os.access(path, os.R_OK):
                 with open(path, 'r') as f:
                     return f.read(content)
             else:
