@@ -17,15 +17,21 @@ def home():
                 if os.access(path, os.W_OK):
                     with open(path, 'w') as f:
                         f.write(content)
+                    print("Succeeded writing to local:", country)
                     return content
                 else:
                     time.sleep(1)
                     count += 1
+            print("Failed writing to local:", country)
+            return content
+        print("Failed reading from API:", country)
         while True:
             if os.access(path, os.R_OK):
                 with open(path, 'r') as f:
+                    print("Succeeded reading from local:", country)
                     return f.read(content)
             else:
+                print("Failed reading from local:", country)
                 time.sleep(5)
     else:
         s = "<!DOCTYPE html><html>"
